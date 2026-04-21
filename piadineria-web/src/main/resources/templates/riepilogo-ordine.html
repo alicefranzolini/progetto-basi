@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Riepilogo</title></head>
+<body>
+<h1>Riepilogo ordine</h1>
+
+<p>ID ordine: <span th:text="${ordine.id}"></span></p>
+
+<table border="1">
+<tr>
+    <th>Prodotto</th><th>Quantità</th><th>Prezzo</th><th>Subtotale</th>
+</tr>
+<tr th:each="r : ${ordine.righe}">
+    <td th:text="${r.prodotto.nome}"></td>
+    <td th:text="${r.quantita}"></td>
+    <td th:text="${r.prezzoUnitario}"></td>
+    <td th:text="${r.prezzoUnitario * r.quantita}"></td>
+</tr>
+</table>
+
+<p>Totale: <span th:text="${ordine.totale}"></span> €</p>
+
+<a href="/menu">Torna al menù</a>
+
+</body>
+</html>
