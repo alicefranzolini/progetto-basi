@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="navbar-left">
+        <img src="/logo.png" alt="Logo" style="height:45px; border-radius:6px;">
+        <a href="/" style="color:white; font-size:20px; font-weight:bold;">Piadineria</a>
+    </div>
+
+    <div class="navbar-links">
+
+        <!-- SEMPRE -->
+        <a href="/menu">Menù</a>
+
+        <!-- UTENTE LOGGATO -->
+        <a th:if="${session.utente != null}" href="/menu/ordini">I miei ordini</a>
+        <a th:if="${session.utente != null}" href="/prenotazioni">Prenota tavolo</a>
+        <a th:if="${session.utente != null}" href="/prenotazioni/mie">Le mie prenotazioni</a>
+        <a th:if="${session.utente != null}" href="/feedback/miei">I miei feedback</a>
+
+        <!-- ADMIN -->
+        <a th:if="${session.utente != null and session.utente.ruolo == 'ADMIN'}" href="/admin">Admin</a>
+        <a th:if="${session.utente != null and session.utente.ruolo == 'ADMIN'}" href="/feedback/admin">Feedback Admin</a>
+
+        <!-- FATTORINO -->
+        <a th:if="${session.utente != null and session.utente.ruolo == 'FATTORINO'}"
+           th:href="@{'/fattorino/' + ${session.utente.id}}">Fattorino</a>
+
+        <!-- LOGIN / LOGOUT -->
+        <a th:if="${session.utente == null}" href="/login">Login</a>
+        <a th:if="${session.utente != null}" href="/logout" style="color:#e74c3c;">Logout</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

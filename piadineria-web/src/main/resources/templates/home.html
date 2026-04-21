@@ -1,19 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Piadineria</title></head>
+<head>
+    <title>Piadineria - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #d35400;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            margin-top: 30px;
+        }
+        h2 {
+            color: #d35400;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 6px solid #d35400;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #d35400;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        a.button:hover {
+            background: #e67e22;
+        }
+    </style>
+</head>
 <body>
-<h1>Piadineria Da Linda</h1>
+<div th:replace="fragments/navbar :: body"></div>
 
-<div th:if="${utente == null}">
-    <a href="/login">Login</a> |
-    <a href="/registrazione">Registrati</a>
-</div>
+<header>
+    <h1>Piadineria - Benvenuto!</h1>
+</header>
 
-<div th:if="${utente != null}">
-    <p>Benvenuto, <span th:text="${utente.nome}"></span></p>
-    <a href="/menu">Menù</a> |
-    <a href="/menu/ordini">I miei ordini</a> |
-    <a href="/logout">Logout</a>
+<div class="container">
+
+    <div class="card">
+        <h2>🍽️ Menù & Ordini</h2>
+        <p>Ordina piadine, bevande e altro. Puoi scegliere ASPORTO o DELIVERY.</p>
+        <a class="button" href="/menu">Vai al menù</a>
+        <a class="button" href="/menu/ordini">I miei ordini</a>
+    </div>
+
+    <div class="card">
+        <h2>🛵 Fattorino</h2>
+        <p>Se sei un fattorino, puoi vedere gli ordini assegnati e aggiornare lo stato.</p>
+        <a class="button" href="/fattorino/1">Dashboard Fattorino</a>
+    </div>
+
+    <div class="card">
+        <h2>📅 Prenotazione Tavolo</h2>
+        <p>Prenota un tavolo per la tua serata in piadineria.</p>
+        <a class="button" href="/prenotazioni">Prenota un tavolo</a>
+        <a class="button" href="/prenotazioni/mie">Le mie prenotazioni</a>
+    </div>
+
+    <div class="card">
+        <h2>⭐ Feedback</h2>
+        <p>Lascia un feedback su ordini o prenotazioni.</p>
+        <a class="button" href="/feedback/miei">I miei feedback</a>
+        <a class="button" href="/feedback/admin">Feedback (Admin)</a>
+    </div>
+
 </div>
 
 </body>

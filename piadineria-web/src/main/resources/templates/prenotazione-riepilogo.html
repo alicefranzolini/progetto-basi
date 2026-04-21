@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Riepilogo Prenotazione</title></head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<h1>Prenotazione effettuata</h1>
+
+<p>ID: <span th:text="${prenotazione.id}"></span></p>
+<p>Data: <span th:text="${prenotazione.data}"></span></p>
+<p>Ora: <span th:text="${prenotazione.ora}"></span></p>
+<p>Persone: <span th:text="${prenotazione.persone}"></span></p>
+<p>Tavolo assegnato: <span th:text="${prenotazione.tavolo.numero}"></span></p>
+<p>Stato: <span th:text="${prenotazione.stato}"></span></p>
+
+<a href="/prenotazioni/mie">Vai alle mie prenotazioni</a>
+
+</body>
+</html>

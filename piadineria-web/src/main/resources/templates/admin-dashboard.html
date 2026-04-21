@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: body"></div>
+
+<div class="container">
+
+    <h1>Dashboard Amministratore</h1>
+
+    <div class="card">
+        <h2>👤 Utenti</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Nome</th><th>Email</th></tr>
+            <tr th:each="u : ${utenti}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.nome} + ' ' + ${u.cognome}"></td>
+                <td th:text="${u.email}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🛒 Ordini</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Cliente</th><th>Totale</th><th>Stato</th></tr>
+            <tr th:each="o : ${ordini}">
+                <td th:text="${o.id}"></td>
+                <td th:text="${o.utente.nome}"></td>
+                <td th:text="${o.totale}"></td>
+                <td th:text="${o.statoCorrente}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>📅 Prenotazioni</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Data</th><th>Ora</th><th>Persone</th><th>Stato</th></tr>
+            <tr th:each="p : ${prenotazioni}">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.data}"></td>
+                <td th:text="${p.ora}"></td>
+                <td th:text="${p.persone}"></td>
+                <td th:text="${p.stato}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>⭐ Feedback</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Utente</th><th>Voto</th><th>Commento</th></tr>
+            <tr th:each="f : ${feedback}">
+                <td th:text="${f.id}"></td>
+                <td th:text="${f.utente.nome}"></td>
+                <td th:text="${f.voto}"></td>
+                <td th:text="${f.commento}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🛵 Fattorini</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Nome</th><th>Zona</th><th>Attivo</th></tr>
+            <tr th:each="f : ${fattorini}">
+                <td th:text="${f.id}"></td>
+                <td th:text="${f.nome}"></td>
+                <td th:text="${f.zona}"></td>
+                <td th:text="${f.attivo}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🍽 Tavoli</h2>
+        <table border="1">
+            <tr><th>ID</th><th>Numero</th><th>Posti</th><th>Disponibile</th></tr>
+            <tr th:each="t : ${tavoli}">
+                <td th:text="${t.id}"></td>
+                <td th:text="${t.numero}"></td>
+                <td th:text="${t.posti}"></td>
+                <td th:text="${t.disponibile}"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

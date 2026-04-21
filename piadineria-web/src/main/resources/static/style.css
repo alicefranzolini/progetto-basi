@@ -1,0 +1,81 @@
+/* ====== DARK MODE ====== */
+
+body {
+    background: #1e1e1e;
+    color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #111;
+    padding: 15px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 2px solid #d35400;
+}
+
+.navbar a {
+    color: #f2f2f2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #e67e22;
+}
+
+/* CONTAINER */
+.container {
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+/* CARD */
+.card {
+    background: #2b2b2b;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border-left: 6px solid #d35400;
+}
+
+/* BUTTON */
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #d35400;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background: #e67e22;
+}
+
+/* INPUT */
+input, select {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+button {
+    background: #d35400;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #e67e22;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Prenotazione Tavolo</title></head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<h1>Prenota un tavolo</h1>
+
+<form method="post" action="/prenotazioni">
+    Data: <input type="date" name="data" required><br>
+    Ora: <input type="time" name="ora" required><br>
+    Persone: <input type="number" name="persone" min="1" required><br>
+    Note: <input type="text" name="note"><br>
+    <button type="submit">Prenota</button>
+</form>
+
+</body>
+</html>

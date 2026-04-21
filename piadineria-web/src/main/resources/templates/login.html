@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><title>Login</title></head>
 <body>
+    <div th:replace="fragments/navbar :: body"></div>
+
 <h1>Login</h1>
 
 <p th:if="${errore}" th:text="${errore}" style="color:red"></p>

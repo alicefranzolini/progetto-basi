@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Feedback Ordine</title></head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<h1>Lascia un feedback sull'ordine</h1>
+
+<form th:action="@{'/feedback/ordine/' + ${servizioId}}" method="post">
+    Voto (1-5): <input type="number" name="voto" min="1" max="5" required><br>
+    Commento: <input type="text" name="commento"><br>
+    <button type="submit">Invia</button>
+</form>
+
+</body>
+</html>

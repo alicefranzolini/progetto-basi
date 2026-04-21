@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><title>Menù</title></head>
 <body>
+    <div th:replace="fragments/navbar :: body"></div>
+
 <h1>Menù</h1>
 
 <form method="post" action="/menu/ordine-asporto">

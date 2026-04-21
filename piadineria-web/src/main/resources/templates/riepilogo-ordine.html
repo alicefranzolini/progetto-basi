@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><title>Riepilogo</title></head>
 <body>
+    <div th:replace="fragments/navbar :: body"></div>
+
 <h1>Riepilogo ordine</h1>
 
 <p>ID ordine: <span th:text="${ordine.id}"></span></p>

@@ -4,21 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "utenti")
+@Table(name = "tavoli")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
-public class Utente {
+public class Tavolo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-    private String cognome;
-    private String email;
-    private String password;
-
-    // USER, ADMIN, FATTORINO
-    private String ruolo;
+    private int numero;
+    private int posti;
+    private boolean disponibile;
 }
