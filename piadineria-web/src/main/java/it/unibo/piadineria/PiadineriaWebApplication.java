@@ -1,4 +1,4 @@
-package it.unibo.piadineria.piadineria_web;
+package it.unibo.piadineria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
