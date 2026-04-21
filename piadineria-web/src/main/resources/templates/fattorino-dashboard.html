@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard Fattorino</title>
+</head>
+<body>
+
+<h1>Benvenuto, <span th:text="${fattorino.nome}"></span></h1>
+
+<h2>Ordini assegnati</h2>
+
+<table border="1">
+    <tr>
+        <th>ID Ordine</th>
+        <th>Cliente</th>
+        <th>Totale</th>
+        <th>Stato</th>
+        <th>Azione</th>
+    </tr>
+
+    <tr th:each="o : ${ordini}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.utente.nome} + ' ' + ${o.utente.cognome}"></td>
+        <td th:text="${o.totale}"></td>
+        <td th:text="${o.statoCorrente}"></td>
+
+        <td>
+            <form th:action="@{'/fattorino/' + ${fattorino.id} + '/stato/' + ${o.id}}" method="post">
+                <select name="nuovoStato">
+                    <option value="IN_PREPARAZIONE">IN_PREPARAZIONE</option>
+                    <option value="IN_CONSEGNA">IN_CONSEGNA</option>
+                    <option value="CONSEGNATO">CONSEGNATO</option>
+                </select>
+                <button type="submit">Aggiorna</button>
+            </form>
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -4,19 +4,39 @@
 <body>
 <h1>Menù</h1>
 
-<form method="post" action="/menu/ordine">
-<table border="1">
-    <tr>
-        <th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th>
-    </tr>
-    <tr th:each="p : ${prodotti}">
-        <td th:text="${p.nome}"></td>
-        <td th:text="${p.descrizione}"></td>
-        <td th:text="${p.prezzo}"></td>
-        <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
-    </tr>
-</table>
-<button type="submit">Crea ordine</button>
+<form method="post" action="/menu/ordine-asporto">
+    <h2>Ordine ASPORTO</h2>
+    <table border="1">
+        <tr>
+            <th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th>
+        </tr>
+        <tr th:each="p : ${prodotti}">
+            <td th:text="${p.nome}"></td>
+            <td th:text="${p.descrizione}"></td>
+            <td th:text="${p.prezzo}"></td>
+            <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
+        </tr>
+    </table>
+    <button type="submit">Crea ordine ASPORTO</button>
+</form>
+
+<hr/>
+
+<form method="post" action="/menu/ordine-delivery">
+    <h2>Ordine DELIVERY</h2>
+    <p>(per ora usa gli stessi prodotti, poi aggiungiamo scelta indirizzo)</p>
+    <table border="1">
+        <tr>
+            <th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th>
+        </tr>
+        <tr th:each="p : ${prodotti}">
+            <td th:text="${p.nome}"></td>
+            <td th:text="${p.descrizione}"></td>
+            <td th:text="${p.prezzo}"></td>
+            <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
+        </tr>
+    </table>
+    <button type="submit">Crea ordine DELIVERY</button>
 </form>
 
 </body>

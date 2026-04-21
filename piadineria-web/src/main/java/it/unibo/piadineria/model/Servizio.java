@@ -17,7 +17,8 @@ public class Servizio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo; // ASPORTO per ora
+    // ASPORTO, DELIVERY, PRENOTAZIONE_TAVOLO
+    private String tipo;
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
@@ -25,6 +26,14 @@ public class Servizio {
 
     private LocalDateTime dataCreazione;
     private double totale;
+
+    // stato attuale dell’ordine
+    private String statoCorrente;
+
+    // fattorino assegnato (solo per DELIVERY)
+    @ManyToOne
+    @JoinColumn(name = "fattorino_id")
+    private Fattorino fattorino;
 
     @OneToMany(mappedBy = "servizio", cascade = CascadeType.ALL)
     private List<RigaOrdine> righe;

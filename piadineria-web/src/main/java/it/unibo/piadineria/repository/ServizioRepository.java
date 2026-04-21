@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ServizioRepository extends JpaRepository<Servizio, Long> {
     List<Servizio> findByUtenteId(Long utenteId);
+    List<Servizio> findByFattorinoId(Long fattorinoId);
 }

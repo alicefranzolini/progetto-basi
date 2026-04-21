@@ -29,29 +29,38 @@ public class MenuController {
         return "menu";
     }
 
-    @PostMapping("/ordine")
-    public String creaOrdine(@RequestParam Map<String, String> params,
-                             HttpSession session,
-                             Model model) {
+    @PostMapping("/ordine-asporto")
+    public String creaOrdineAsporto(@RequestParam Map<String, String> params,
+                                    HttpSession session,
+                                    Model model) {
 
         Utente u = (Utente) session.getAttribute("utente");
         if (u == null) return "redirect:/login";
 
-        Map<Long, Integer> prodottiQuantita = new HashMap<>();
-
-        params.forEach((k, v) -> {
-            if (k.startsWith("qta_")) {
-                Long id = Long.parseLong(k.substring(4));
-                int qta = Integer.parseInt(v);
-                prodottiQuantita.put(id, qta);
-            }
-        });
+        Map<Long, Integer> prodottiQuantita = estraiQuantita(params);
 
         Servizio s = ordineService.creaOrdineAsporto(u.getId(), prodottiQuantita);
 
         model.addAttribute("ordine", s);
         model.addAttribute("utente", u);
+        return "riepilogo-ordine";
+    }
 
+    @PostMapping("/ordine-delivery")
+    public String creaOrdineDelivery(@RequestParam Map<String, String> params,
+                                     HttpSession session,
+                                     Model model) {
+
+        Utente u = (Utente) session.getAttribute("utente");
+        if (u == null) return "redirect:/login";
+
+        Map<Long, Integer> prodottiQuantita = estraiQuantita(params);
+
+        // per ora indirizzoId = null, poi aggiungiamo selezione indirizzo
+        Servizio s = ordineService.creaOrdineDelivery(u.getId(), prodottiQuantita, null);
+
+        model.addAttribute("ordine", s);
+        model.addAttribute("utente", u);
         return "riepilogo-ordine";
     }
 
@@ -63,5 +72,17 @@ public class MenuController {
         model.addAttribute("utente", u);
         model.addAttribute("ordini", ordineService.ordiniPerUtente(u.getId()));
         return "ordini";
+    }
+
+    private Map<Long, Integer> estraiQuantita(Map<String, String> params) {
+        Map<Long, Integer> prodottiQuantita = new HashMap<>();
+        params.forEach((k, v) -> {
+            if (k.startsWith("qta_")) {
+                Long id = Long.parseLong(k.substring(4));
+                int qta = Integer.parseInt(v);
+                prodottiQuantita.put(id, qta);
+            }
+        });
+        return prodottiQuantita;
     }
 }
