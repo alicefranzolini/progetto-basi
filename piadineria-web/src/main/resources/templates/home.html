@@ -1,86 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Piadineria - Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #d35400;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            margin-top: 30px;
-        }
-        h2 {
-            color: #d35400;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border-left: 6px solid #d35400;
-        }
-        a.button {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #d35400;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        a.button:hover {
-            background: #e67e22;
-        }
-    </style>
+    <title>Login - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div th:replace="fragments/navbar :: body"></div>
-
-<header>
-    <h1>Piadineria - Benvenuto!</h1>
-</header>
-
+ 
 <div class="container">
-
-    <div class="card">
-        <h2>🍽️ Menù & Ordini</h2>
-        <p>Ordina piadine, bevande e altro. Puoi scegliere ASPORTO o DELIVERY.</p>
-        <a class="button" href="/menu">Vai al menù</a>
-        <a class="button" href="/menu/ordini">I miei ordini</a>
+    <h1>Accedi</h1>
+ 
+    <div class="form-wrapper">
+        <p th:if="${msg}"    th:text="${msg}"    class="msg-ok"></p>
+        <p th:if="${errore}" th:text="${errore}" class="msg-err"></p>
+ 
+        <form method="post" action="/login">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="la-tua@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+                <label for="ruolo">Accedi come</label>
+                <select id="ruolo" name="ruolo">
+                    <option value="UTENTE">Utente</option>
+                    <option value="FATTORINO">Fattorino</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+            <button type="submit" style="width:100%;justify-content:center;margin-top:8px;">Entra</button>
+        </form>
+ 
+        <p style="text-align:center;margin-top:20px;font-size:.9rem;color:#888;">
+            Non hai un account? <a href="/registrazione">Registrati qui</a>
+        </p>
     </div>
-
-    <div class="card">
-        <h2>🛵 Fattorino</h2>
-        <p>Se sei un fattorino, puoi vedere gli ordini assegnati e aggiornare lo stato.</p>
-        <a class="button" href="/fattorino/1">Dashboard Fattorino</a>
-    </div>
-
-    <div class="card">
-        <h2>📅 Prenotazione Tavolo</h2>
-        <p>Prenota un tavolo per la tua serata in piadineria.</p>
-        <a class="button" href="/prenotazioni">Prenota un tavolo</a>
-        <a class="button" href="/prenotazioni/mie">Le mie prenotazioni</a>
-    </div>
-
-    <div class="card">
-        <h2>⭐ Feedback</h2>
-        <p>Lascia un feedback su ordini o prenotazioni.</p>
-        <a class="button" href="/feedback/miei">I miei feedback</a>
-        <a class="button" href="/feedback/admin">Feedback (Admin)</a>
-    </div>
-
 </div>
-
 </body>
 </html>

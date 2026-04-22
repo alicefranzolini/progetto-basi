@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Riepilogo</title></head>
+<head>
+    <title>Riepilogo ordine - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-    <div th:replace="fragments/navbar :: body"></div>
-
-<h1>Riepilogo ordine</h1>
-
-<p>ID ordine: <span th:text="${ordine.id}"></span></p>
-
-<table border="1">
-<tr>
-    <th>Prodotto</th><th>Quantità</th><th>Prezzo</th><th>Subtotale</th>
-</tr>
-<tr th:each="r : ${ordine.righe}">
-    <td th:text="${r.prodotto.nome}"></td>
-    <td th:text="${r.quantita}"></td>
-    <td th:text="${r.prezzoUnitario}"></td>
-    <td th:text="${r.prezzoUnitario * r.quantita}"></td>
-</tr>
-</table>
-
-<p>Totale: <span th:text="${ordine.totale}"></span> €</p>
-
-<a href="/menu">Torna al menù</a>
-
+<div th:replace="fragments/navbar :: body"></div>
+ 
+<div class="container">
+    <h1>Riepilogo ordine</h1>
+ 
+    <div class="card">
+        <p style="color:#888;margin-bottom:16px;">Ordine <strong style="color:var(--rosso);" th:text="'#' + ${ordine.id}"></strong></p>
+        <table>
+            <thead>
+                <tr><th>Prodotto</th><th>Quantità</th><th>Prezzo</th><th>Subtotale</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${ordine.righe}">
+                    <td th:text="${r.prodotto.nome}"></td>
+                    <td th:text="${r.quantita}"></td>
+                    <td th:text="${r.prezzoUnitario} + ' €'"></td>
+                    <td th:text="${r.prezzoUnitario * r.quantita} + ' €'"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="riepilogo-totale">
+            Totale: <span th:text="${ordine.totale} + ' €'"></span>
+        </div>
+    </div>
+ 
+    <a href="/menu">← Torna al menù</a>
+</div>
 </body>
 </html>
+ 

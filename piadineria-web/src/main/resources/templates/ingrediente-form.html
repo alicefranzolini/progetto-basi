@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ingrediente - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<div class="container">
+    <h1 th:text="${ingrediente.id == null} ? 'Nuovo ingrediente' : 'Modifica ingrediente'"></h1>
+
+    <div class="form-wrapper">
+        <form method="post" action="/admin/ingredienti/salva" th:object="${ingrediente}">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" th:field="*{nome}" placeholder="Es. Prosciutto crudo" required>
+            </div>
+            <div class="form-group">
+                <label for="quantita">Quantità (kg)</label>
+                <input type="number" id="quantita" step="0.1" th:field="*{quantita}" placeholder="0.0" required>
+            </div>
+            <div class="form-group">
+                <label for="soglia">Soglia minima (kg)</label>
+                <input type="number" id="soglia" step="0.1" th:field="*{sogliaMinima}" placeholder="0.0" required>
+            </div>
+            <button type="submit" style="width:100%;justify-content:center;margin-top:8px;">💾 Salva</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

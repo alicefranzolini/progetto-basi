@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Magazzino - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<div class="container">
+    <h1>Magazzino Ingredienti</h1>
+
+    <div class="card">
+        <h2>📦 Ingredienti</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Quantità</th>
+                    <th>Soglia min.</th>
+                    <th>Carico</th>
+                    <th>Scarico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${ingredienti}">
+                    <td th:text="${i.id}"></td>
+                    <td th:text="${i.nome}"></td>
+                    <td th:text="${i.quantita}"></td>
+                    <td th:text="${i.sogliaMinima}"></td>
+
+                    <td>
+                        <form method="post" action="/admin/magazzino/carico">
+                            <input type="hidden" name="ingredienteId" th:value="${i.id}">
+                            <input type="number" name="quantita" step="0.1" placeholder="0.0" required>
+                            <button type="submit">⬆ Carica</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form method="post" action="/admin/magazzino/scarico">
+                            <input type="hidden" name="ingredienteId" th:value="${i.id}">
+                            <input type="number" name="quantita" step="0.1" placeholder="0.0" required>
+                            <button type="submit">⬇ Scarica</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>📋 Movimenti Magazzino</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ingrediente</th>
+                    <th>Tipo</th>
+                    <th>Quantità</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${movimenti}">
+                    <td th:text="${m.id}"></td>
+                    <td th:text="${m.ingrediente.nome}"></td>
+                    <td th:text="${m.tipo}"></td>
+                    <td th:text="${m.quantita}"></td>
+                    <td th:text="${m.data}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

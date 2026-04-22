@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ingredienti - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:replace="fragments/navbar :: body"></div>
+
+<div class="container">
+    <h1>Ingredienti</h1>
+
+    <div style="margin-bottom:20px;">
+        <a class="button" href="/admin/ingredienti/nuovo">+ Nuovo ingrediente</a>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Nome</th><th>Quantità</th><th>Soglia min.</th><th>Azioni</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${ingredienti}">
+                    <td th:text="${i.id}"></td>
+                    <td th:text="${i.nome}"></td>
+                    <td th:text="${i.quantita}"></td>
+                    <td th:text="${i.sogliaMinima}"></td>
+                    <td style="display:flex;gap:10px;">
+                        <a th:href="@{'/admin/ingredienti/modifica/' + ${i.id}}">✏️ Modifica</a>
+                        <a th:href="@{'/admin/ingredienti/elimina/' + ${i.id}}" style="color:#c0394f;">🗑 Elimina</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

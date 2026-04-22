@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Menù</title></head>
+<head>
+    <title>Menù - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-    <div th:replace="fragments/navbar :: body"></div>
-
-<h1>Menù</h1>
-
-<form method="post" action="/menu/ordine-asporto">
-    <h2>Ordine ASPORTO</h2>
-    <table border="1">
-        <tr>
-            <th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th>
-        </tr>
-        <tr th:each="p : ${prodotti}">
-            <td th:text="${p.nome}"></td>
-            <td th:text="${p.descrizione}"></td>
-            <td th:text="${p.prezzo}"></td>
-            <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
-        </tr>
-    </table>
-    <button type="submit">Crea ordine ASPORTO</button>
-</form>
-
-<hr/>
-
-<form method="post" action="/menu/ordine-delivery">
-    <h2>Ordine DELIVERY</h2>
-    <p>(per ora usa gli stessi prodotti, poi aggiungiamo scelta indirizzo)</p>
-    <table border="1">
-        <tr>
-            <th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th>
-        </tr>
-        <tr th:each="p : ${prodotti}">
-            <td th:text="${p.nome}"></td>
-            <td th:text="${p.descrizione}"></td>
-            <td th:text="${p.prezzo}"></td>
-            <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
-        </tr>
-    </table>
-    <button type="submit">Crea ordine DELIVERY</button>
-</form>
-
+<div th:replace="fragments/navbar :: body"></div>
+ 
+<div class="container">
+    <h1>Il nostro Menù</h1>
+ 
+    <div class="card">
+        <h2>🥡 Ordine Asporto</h2>
+        <form method="post" action="/menu/ordine-asporto">
+            <table>
+                <thead>
+                    <tr><th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${prodotti}">
+                        <td th:text="${p.nome}"></td>
+                        <td th:text="${p.descrizione}"></td>
+                        <td th:text="${p.prezzo} + ' €'"></td>
+                        <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top:20px;">
+                <button type="submit">🥡 Crea ordine Asporto</button>
+            </div>
+        </form>
+    </div>
+ 
+    <div class="card">
+        <h2>🛵 Ordine Delivery</h2>
+        <form method="post" action="/menu/ordine-delivery">
+            <table>
+                <thead>
+                    <tr><th>Prodotto</th><th>Descrizione</th><th>Prezzo</th><th>Quantità</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${prodotti}">
+                        <td th:text="${p.nome}"></td>
+                        <td th:text="${p.descrizione}"></td>
+                        <td th:text="${p.prezzo} + ' €'"></td>
+                        <td><input type="number" min="0" th:name="${'qta_' + p.id}" value="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top:20px;">
+                <button type="submit">🛵 Crea ordine Delivery</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
+ 

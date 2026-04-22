@@ -30,9 +30,8 @@ public class AuthController {
                            @RequestParam String email,
                            @RequestParam String password,
                            Model model) {
-
         service.registra(nome, cognome, email, password);
-        model.addAttribute("msg", "Registrazione completata");
+        model.addAttribute("msg", "Registrazione completata! Ora puoi accedere.");
         return "login";
     }
 
@@ -44,12 +43,19 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
+                        @RequestParam String ruolo,
                         HttpSession session,
                         Model model) {
 
         return service.login(email, password)
                 .map(u -> {
+                    if (!ruolo.equals(u.getRuolo())) {
+                        model.addAttribute("errore", "Ruolo non corretto per questo account");
+                        return "login";
+                    }
                     session.setAttribute("utente", u);
+                    if ("ADMIN".equals(u.getRuolo()))     return "redirect:/admin";
+                    if ("FATTORINO".equals(u.getRuolo())) return "redirect:/fattorino/ordini";
                     return "redirect:/menu";
                 })
                 .orElseGet(() -> {

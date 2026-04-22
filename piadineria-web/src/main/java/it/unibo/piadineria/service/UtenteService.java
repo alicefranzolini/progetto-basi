@@ -19,6 +19,7 @@ public class UtenteService {
                 .cognome(cognome)
                 .email(email)
                 .password(password)
+                .ruolo("UTENTE")
                 .build();
         return repo.save(u);
     }
@@ -27,4 +28,3 @@ public class UtenteService {
         return repo.findByEmailAndPassword(email, password);
     }
 }
-

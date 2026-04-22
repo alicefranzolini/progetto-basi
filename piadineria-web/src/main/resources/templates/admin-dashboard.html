@@ -1,96 +1,135 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Piadineria da Linda</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
 <div th:replace="fragments/navbar :: body"></div>
 
 <div class="container">
-
     <h1>Dashboard Amministratore</h1>
 
     <div class="card">
         <h2>👤 Utenti</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Nome</th><th>Email</th></tr>
-            <tr th:each="u : ${utenti}">
-                <td th:text="${u.id}"></td>
-                <td th:text="${u.nome} + ' ' + ${u.cognome}"></td>
-                <td th:text="${u.email}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Nome</th><th>Email</th></tr></thead>
+            <tbody>
+                <tr th:each="u : ${utenti}">
+                    <td th:text="${u.id}"></td>
+                    <td th:text="${u.nome} + ' ' + ${u.cognome}"></td>
+                    <td th:text="${u.email}"></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="card">
         <h2>🛒 Ordini</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Cliente</th><th>Totale</th><th>Stato</th></tr>
-            <tr th:each="o : ${ordini}">
-                <td th:text="${o.id}"></td>
-                <td th:text="${o.utente.nome}"></td>
-                <td th:text="${o.totale}"></td>
-                <td th:text="${o.statoCorrente}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Cliente</th><th>Tipo</th><th>Totale</th><th>Stato</th><th>Fattorino</th><th>Azioni</th></tr></thead>
+            <tbody>
+                <tr th:each="o : ${ordini}">
+                    <td th:text="${o.id}"></td>
+                    <td th:text="${o.utente.nome}"></td>
+                    <td th:text="${o.tipo}"></td>
+                    <td th:text="${o.totale} + ' €'"></td>
+                    <td th:text="${o.statoCorrente}"></td>
+                    <td th:text="${o.fattorino != null} ? ${o.fattorino.nome} : '—'"></td>
+                    <td>
+                        <form th:action="@{'/admin/ordini/' + ${o.id} + '/stato'}" method="post" style="display:flex;gap:8px;margin-bottom:6px;">
+                            <select name="nuovoStato">
+                                <option value="IN_PREPARAZIONE">In preparazione</option>
+                                <option value="IN_CONSEGNA">In consegna</option>
+                                <option value="CONSEGNATO">Consegnato</option>
+                                <option value="ANNULLATO">Annullato</option>
+                            </select>
+                            <button type="submit">✔ Stato</button>
+                        </form>
+                        <form th:action="@{'/admin/ordini/' + ${o.id} + '/fattorino'}" method="post" style="display:flex;gap:8px;" th:if="${o.tipo == 'DELIVERY'}">
+                            <select name="fattorinoId">
+                                <option th:each="f : ${fattorini}" th:value="${f.id}" th:text="${f.nome}"></option>
+                            </select>
+                            <button type="submit">🛵 Assegna</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="card">
         <h2>📅 Prenotazioni</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Data</th><th>Ora</th><th>Persone</th><th>Stato</th></tr>
-            <tr th:each="p : ${prenotazioni}">
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.data}"></td>
-                <td th:text="${p.ora}"></td>
-                <td th:text="${p.persone}"></td>
-                <td th:text="${p.stato}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Cliente</th><th>Data</th><th>Ora</th><th>Persone</th><th>Tavolo</th><th>Stato</th><th>Azione</th></tr></thead>
+            <tbody>
+                <tr th:each="p : ${prenotazioni}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.utente.nome} + ' ' + ${p.utente.cognome}"></td>
+                    <td th:text="${p.data}"></td>
+                    <td th:text="${p.ora}"></td>
+                    <td th:text="${p.persone}"></td>
+                    <td th:text="${p.tavolo != null} ? 'Tavolo ' + ${p.tavolo.numero} : '—'"></td>
+                    <td th:text="${p.stato}"></td>
+                    <td>
+                        <form th:action="@{'/admin/prenotazioni/' + ${p.id} + '/stato'}" method="post" style="display:flex;gap:8px;">
+                            <select name="nuovoStato">
+                                <option value="IN_ATTESA">In attesa</option>
+                                <option value="CONFERMATA">Confermata</option>
+                                <option value="RIFIUTATA">Rifiutata</option>
+                            </select>
+                            <button type="submit">✔ Aggiorna</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="card">
         <h2>⭐ Feedback</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Utente</th><th>Voto</th><th>Commento</th></tr>
-            <tr th:each="f : ${feedback}">
-                <td th:text="${f.id}"></td>
-                <td th:text="${f.utente.nome}"></td>
-                <td th:text="${f.voto}"></td>
-                <td th:text="${f.commento}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Utente</th><th>Voto</th><th>Commento</th></tr></thead>
+            <tbody>
+                <tr th:each="f : ${feedback}">
+                    <td th:text="${f.id}"></td>
+                    <td th:text="${f.utente.nome}"></td>
+                    <td th:text="${f.voto}"></td>
+                    <td th:text="${f.commento}"></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="card">
         <h2>🛵 Fattorini</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Nome</th><th>Zona</th><th>Attivo</th></tr>
-            <tr th:each="f : ${fattorini}">
-                <td th:text="${f.id}"></td>
-                <td th:text="${f.nome}"></td>
-                <td th:text="${f.zona}"></td>
-                <td th:text="${f.attivo}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Nome</th><th>Zona</th><th>Attivo</th></tr></thead>
+            <tbody>
+                <tr th:each="f : ${fattorini}">
+                    <td th:text="${f.id}"></td>
+                    <td th:text="${f.nome}"></td>
+                    <td th:text="${f.zona}"></td>
+                    <td th:text="${f.attivo}"></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="card">
         <h2>🍽 Tavoli</h2>
-        <table border="1">
-            <tr><th>ID</th><th>Numero</th><th>Posti</th><th>Disponibile</th></tr>
-            <tr th:each="t : ${tavoli}">
-                <td th:text="${t.id}"></td>
-                <td th:text="${t.numero}"></td>
-                <td th:text="${t.posti}"></td>
-                <td th:text="${t.disponibile}"></td>
-            </tr>
+        <table>
+            <thead><tr><th>ID</th><th>Numero</th><th>Posti</th><th>Disponibile</th></tr></thead>
+            <tbody>
+                <tr th:each="t : ${tavoli}">
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.numero}"></td>
+                    <td th:text="${t.posti}"></td>
+                    <td th:text="${t.disponibile}"></td>
+                </tr>
+            </tbody>
         </table>
     </div>
-
 </div>
-
 </body>
 </html>

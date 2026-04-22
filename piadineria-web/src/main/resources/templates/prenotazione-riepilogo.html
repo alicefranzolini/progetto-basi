@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Riepilogo Prenotazione</title></head>
+<head>
+    <title>Prenotazione effettuata - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
 <div th:replace="fragments/navbar :: body"></div>
 
-<h1>Prenotazione effettuata</h1>
+<div class="container">
+    <h1>Prenotazione effettuata! 🎉</h1>
 
-<p>ID: <span th:text="${prenotazione.id}"></span></p>
-<p>Data: <span th:text="${prenotazione.data}"></span></p>
-<p>Ora: <span th:text="${prenotazione.ora}"></span></p>
-<p>Persone: <span th:text="${prenotazione.persone}"></span></p>
-<p>Tavolo assegnato: <span th:text="${prenotazione.tavolo.numero}"></span></p>
-<p>Stato: <span th:text="${prenotazione.stato}"></span></p>
-
-<a href="/prenotazioni/mie">Vai alle mie prenotazioni</a>
-
+    <div class="card" style="max-width:480px;">
+        <h2>Riepilogo</h2>
+        <table>
+            <tbody>
+                <tr><td><strong>ID</strong></td><td th:text="${prenotazione.id}"></td></tr>
+                <tr><td><strong>Data</strong></td><td th:text="${prenotazione.data}"></td></tr>
+                <tr><td><strong>Ora</strong></td><td th:text="${prenotazione.ora}"></td></tr>
+                <tr><td><strong>Persone</strong></td><td th:text="${prenotazione.persone}"></td></tr>
+                <tr>
+                    <td><strong>Tavolo</strong></td>
+                    <td>
+                        <span th:if="${prenotazione.tavolo != null}" th:text="'Tavolo ' + ${prenotazione.tavolo.numero}"></span>
+                        <span th:if="${prenotazione.tavolo == null}">Da assegnare</span>
+                    </td>
+                </tr>
+                <tr><td><strong>Stato</strong></td><td th:text="${prenotazione.stato}"></td></tr>
+            </tbody>
+        </table>
+        <div style="margin-top:20px;">
+            <a class="button" href="/prenotazioni/mie">Le mie prenotazioni</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Registrazione</title></head>
+<head>
+    <title>Registrazione - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-    <div th:replace="fragments/navbar :: body"></div>
-
-<h1>Registrazione</h1>
-
-<form method="post" action="/registrazione">
-    Nome: <input type="text" name="nome"><br>
-    Cognome: <input type="text" name="cognome"><br>
-    Email: <input type="email" name="email"><br>
-    Password: <input type="password" name="password"><br>
-    <button type="submit">Registrati</button>
-</form>
-
+<div th:replace="fragments/navbar :: body"></div>
+ 
+<div class="container">
+    <h1>Crea account</h1>
+ 
+    <div class="form-wrapper">
+        <form method="post" action="/registrazione">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" placeholder="Mario" required>
+            </div>
+            <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <input type="text" id="cognome" name="cognome" placeholder="Rossi" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="mario@esempio.it" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" style="width:100%;justify-content:center;margin-top:8px;">Registrati</button>
+        </form>
+ 
+        <p style="text-align:center;margin-top:20px;font-size:.9rem;color:#888;">
+            Hai già un account? <a href="/login">Accedi</a>
+        </p>
+    </div>
+</div>
 </body>
 </html>
+ 

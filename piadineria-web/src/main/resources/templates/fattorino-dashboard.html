@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard Fattorino</title>
+    <title>Dashboard Fattorino - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div th:replace="fragments/navbar :: body"></div>
 
+<div class="container">
+    <h1>Ciao, <span th:text="${fattorino.nome}"></span>! 🛵</h1>
 
-<h1>Benvenuto, <span th:text="${fattorino.nome}"></span></h1>
-
-<h2>Ordini assegnati</h2>
-
-<table border="1">
-    <tr>
-        <th>ID Ordine</th>
-        <th>Cliente</th>
-        <th>Totale</th>
-        <th>Stato</th>
-        <th>Azione</th>
-    </tr>
-
-    <tr th:each="o : ${ordini}">
-        <td th:text="${o.id}"></td>
-        <td th:text="${o.utente.nome} + ' ' + ${o.utente.cognome}"></td>
-        <td th:text="${o.totale}"></td>
-        <td th:text="${o.statoCorrente}"></td>
-
-        <td>
-            <form th:action="@{'/fattorino/' + ${fattorino.id} + '/stato/' + ${o.id}}" method="post">
-                <select name="nuovoStato">
-                    <option value="IN_PREPARAZIONE">IN_PREPARAZIONE</option>
-                    <option value="IN_CONSEGNA">IN_CONSEGNA</option>
-                    <option value="CONSEGNATO">CONSEGNATO</option>
-                </select>
-                <button type="submit">Aggiorna</button>
-            </form>
-        </td>
-    </tr>
-
-</table>
-
+    <div class="card">
+        <h2>Ordini assegnati</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Ordine</th>
+                    <th>Cliente</th>
+                    <th>Totale</th>
+                    <th>Stato attuale</th>
+                    <th>Aggiorna stato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="o : ${ordini}">
+                    <td th:text="${o.id}"></td>
+                    <td th:text="${o.utente.nome} + ' ' + ${o.utente.cognome}"></td>
+                    <td th:text="${o.totale} + ' €'"></td>
+                    <td th:text="${o.statoCorrente}"></td>
+                    <td>
+                        <form th:action="@{'/fattorino/' + ${fattorino.id} + '/stato/' + ${o.id}}" method="post">
+                            <select name="nuovoStato">
+                                <option value="IN_PREPARAZIONE">In preparazione</option>
+                                <option value="IN_CONSEGNA">In consegna</option>
+                                <option value="CONSEGNATO">Consegnato</option>
+                            </select>
+                            <button type="submit">Aggiorna</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

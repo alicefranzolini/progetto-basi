@@ -4,23 +4,18 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "fattorini")
+@Table(name = "ingredienti")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
-public class Fattorino {
+public class Ingrediente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private String cognome;
-    private String telefono;
-    private String zona;
-    private boolean attivo;
 
-    @OneToOne
-    @JoinColumn(name = "utente_id")
-    private Utente utente;
+    private double quantita; // in grammi o unità
+    private double sogliaMinima; // per avvisi
 }

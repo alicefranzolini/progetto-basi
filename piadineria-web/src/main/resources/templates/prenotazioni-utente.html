@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Le mie prenotazioni</title></head>
+<head>
+    <title>Le mie prenotazioni - Piadineria da Linda</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
 <div th:replace="fragments/navbar :: body"></div>
 
-<h1>Le mie prenotazioni</h1>
+<div class="container">
+    <h1>Le mie prenotazioni</h1>
 
-<table border="1">
-    <tr>
-        <th>ID</th><th>Data</th><th>Ora</th><th>Persone</th><th>Tavolo</th><th>Stato</th>
-    </tr>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Data</th><th>Ora</th><th>Persone</th><th>Tavolo</th><th>Stato</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${prenotazioni}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.data}"></td>
+                    <td th:text="${p.ora}"></td>
+                    <td th:text="${p.persone}"></td>
+                    <td>
+                        <span th:if="${p.tavolo != null}" th:text="'Tavolo ' + ${p.tavolo.numero}"></span>
+                        <span th:if="${p.tavolo == null}">Da assegnare</span>
+                    </td>
+                    <td th:text="${p.stato}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <tr th:each="p : ${prenotazioni}">
-        <td th:text="${p.id}"></td>
-        <td th:text="${p.data}"></td>
-        <td th:text="${p.ora}"></td>
-        <td th:text="${p.persone}"></td>
-        <td th:text="${p.tavolo.numero}"></td>
-        <td th:text="${p.stato}"></td>
-    </tr>
-</table>
-
+    <a class="button" href="/prenotazioni">+ Nuova prenotazione</a>
+</div>
 </body>
 </html>

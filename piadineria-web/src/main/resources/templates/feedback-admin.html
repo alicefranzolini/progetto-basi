@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Feedback - Admin</title></head>
+<head>
+    <title>Feedback - Admin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
 <div th:replace="fragments/navbar :: body"></div>
 
-<h1>Tutti i feedback</h1>
+<div class="container">
+    <h1>Tutti i feedback</h1>
 
-<table border="1">
-    <tr>
-        <th>ID</th><th>Utente</th><th>Voto</th><th>Commento</th><th>Tipo</th>
-    </tr>
-
-    <tr th:each="f : ${feedback}">
-        <td th:text="${f.id}"></td>
-        <td th:text="${f.utente.nome} + ' ' + ${f.utente.cognome}"></td>
-        <td th:text="${f.voto}"></td>
-        <td th:text="${f.commento}"></td>
-        <td>
-            <span th:if="${f.servizio != null}">Ordine</span>
-            <span th:if="${f.prenotazione != null}">Prenotazione</span>
-        </td>
-    </tr>
-</table>
-
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Utente</th><th>Voto</th><th>Commento</th><th>Tipo</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="f : ${feedback}">
+                    <td th:text="${f.id}"></td>
+                    <td th:text="${f.utente.nome} + ' ' + ${f.utente.cognome}"></td>
+                    <td th:text="${f.voto}"></td>
+                    <td th:text="${f.commento}"></td>
+                    <td>
+                        <span th:if="${f.servizio != null}">Ordine</span>
+                        <span th:if="${f.prenotazione != null}">Prenotazione</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
