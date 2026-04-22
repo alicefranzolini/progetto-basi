@@ -5,3 +5,8 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
 
 INSERT INTO fattorini (nome, cognome, telefono, zona, attivo, utente_id) VALUES
 ('Marco', 'Neri', '3331234567', 'Centro', true, 2);
+
+INSERT INTO tavoli (numero, posti, disponibile) VALUES (1, 4, true);
+INSERT INTO tavoli (numero, posti, disponibile) VALUES (2, 4, true);
+INSERT INTO tavoli (numero, posti, disponibile) VALUES (3, 6, true);
+INSERT INTO tavoli (numero, posti, disponibile) VALUES (4, 2, true);

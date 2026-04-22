@@ -29,7 +29,7 @@
                     <td th:text="${o.totale} + ' €'"></td>
                     <td th:text="${o.statoCorrente}"></td>
                     <td>
-                        <form th:action="@{'/fattorino/' + ${fattorino.id} + '/stato/' + ${o.id}}" method="post">
+                        <form th:action="@{'/fattorino/stato/' + ${o.id}}" method="post">
                             <select name="nuovoStato">
                                 <option value="IN_PREPARAZIONE">In preparazione</option>
                                 <option value="IN_CONSEGNA">In consegna</option>

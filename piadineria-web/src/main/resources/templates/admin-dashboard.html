@@ -130,6 +130,94 @@
             </tbody>
         </table>
     </div>
+
 </div>
+<!-- MAGAZZINO -->
+    <div class="card">
+        <h2>🏪 Magazzino — Carico / Scarico</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingrediente</th>
+                    <th>Quantità</th>
+                    <th>Soglia min.</th>
+                    <th>Carico</th>
+                    <th>Scarico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ing : ${ingredienti}">
+                    <td th:text="${ing.nome}"></td>
+                    <td th:text="${ing.quantita}"></td>
+                    <td th:text="${ing.sogliaMinima}"></td>
+                    <td>
+                        <form th:action="@{/admin/magazzino/carico}" method="post"
+                              style="display:flex;gap:6px;">
+                            <input type="hidden" name="ingredienteId" th:value="${ing.id}">
+                            <input type="number" name="quantita" min="0.1" step="0.1"
+                                   style="width:70px" placeholder="kg">
+                            <button type="submit">+ Carica</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/admin/magazzino/scarico}" method="post"
+                              style="display:flex;gap:6px;">
+                            <input type="hidden" name="ingredienteId" th:value="${ing.id}">
+                            <input type="number" name="quantita" min="0.1" step="0.1"
+                                   style="width:70px" placeholder="kg">
+                            <button type="submit">− Scarica</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- NUOVO INGREDIENTE -->
+    <div class="card">
+        <h2>➕ Aggiungi Ingrediente</h2>
+        <form action="/admin/ingredienti/nuovo" method="post"
+              style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <input type="text" name="nome" placeholder="Nome ingrediente" required>
+            <input type="number" name="quantita" placeholder="Quantità iniziale (kg)"
+                   min="0" step="0.1" required>
+            <input type="number" name="sogliaMinima" placeholder="Soglia minima (kg)"
+                   min="0" step="0.1" required>
+            <button type="submit">Aggiungi</button>
+        </form>
+    </div>
+
+    <!-- ASSEGNA TAVOLO ALLE PRENOTAZIONI -->
+    <div class="card">
+        <h2>🪑 Assegna Tavolo alle Prenotazioni</h2>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Cliente</th><th>Data</th><th>Persone</th>
+                    <th>Tavolo attuale</th><th>Assegna tavolo</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${prenotazioni}"
+                    th:if="${p.stato == 'CONFERMATA' or p.stato == 'IN_ATTESA'}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.utente.nome} + ' ' + ${p.utente.cognome}"></td>
+                    <td th:text="${p.data}"></td>
+                    <td th:text="${p.persone}"></td>
+                    <td th:text="${p.tavolo != null} ? 'Tavolo ' + ${p.tavolo.numero} : '—'"></td>
+                    <td>
+                        <form th:action="@{'/admin/prenotazioni/' + ${p.id} + '/tavolo'}"
+                              method="post" style="display:flex;gap:6px;">
+                            <select name="tavoloId">
+                                <option th:each="t : ${tavoli}"
+                                        th:value="${t.id}"
+                                        th:text="'Tavolo ' + ${t.numero} + ' (' + ${t.posti} + ' posti)'">
+                                </option>
+                            </select>
+                            <button type="submit">Assegna</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
